@@ -1,4 +1,13 @@
-<!-- Features of building NetflixAI -->
+## NetflixAI
+
+- Creat React App
+- Configure Tailwind and Router
+- Creating components and utils folders
+- Adding by creating basic component for home page/landing page
+- Create Login/Sign up page
+- Confihure Firebbase for BE
+
+## Features of building NetflixAI 
 - Login/Sign up 
     - Login/Sign up Form
     - if logged in -> redirect to Broweser page
@@ -14,9 +23,9 @@
     - Search Bar
         - Movie Suggestions
 
-## setup for creat react app
+<!-- setup for creat react app -->
 npx create-react-app netflix-ai
 
-## configuration of Tailwind
+<!-- configuration of Tailwind -->
 https://v3.tailwindcss.com/docs/guides/create-react-app
 

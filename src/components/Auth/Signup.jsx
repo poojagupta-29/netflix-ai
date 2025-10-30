@@ -3,11 +3,17 @@ import { BodyBgWrapper } from '../Header/BodyBgWrapper'
 import { Buttons } from '../Buttons/Buttons'
 import { Inputs } from '../Inputs/Inputs'
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../../utils/firebase';
 import { useAuthForm } from './Hook/useAuthForm';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { addUser } from '../../utils/userSlice';
 
 export const Signup = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const initialState = {
         username: '',
@@ -24,9 +30,41 @@ export const Signup = () => {
         console.log('Email before signup:', authUser.email, authUser.email.length);
 
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, authUser.email, authUser.password);
-            clearForm();
-            console.log('User signed up:', userCredential.user);
+            console.log("authUser before signup:", authUser);
+
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                authUser.email,
+                authUser.password
+            );
+
+            const user = userCredential.user; // define this BEFORE using it
+
+            await updateProfile(auth.currentUser, {
+                displayName: authUser.username.trim() || authUser.email.split('@')[0],
+                photoURL: user.photoURL || "https://i.pravatar.cc/150?img=47"
+            });
+
+            // reload user info so Redux gets latest displayName
+            await auth.currentUser.reload();
+
+            const updated = auth.currentUser;
+            dispatch(addUser({
+                name: updated.displayName,
+                email: updated.email,
+                uid: updated.uid,
+                photoURL: updated.photoURL
+            }));
+
+            navigate('/browse');
+
+            setTimeout(() => clearForm(), 0);
+
+            console.log('User signed up:', auth.currentUser);
+
+
+
+
         } catch (error) {
             handleError(error);
         }

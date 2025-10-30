@@ -6,7 +6,8 @@ export const Inputs = ({
     inputStyle = "bg-neutral-800",
     name = 'username',
     value = {},
-    onChange = () => { }
+    onChange = () => { },
+    autocomplete = ''
 }) => {
     return (
         <input
@@ -16,6 +17,7 @@ export const Inputs = ({
             name={name}
             value={value}
             onChange={onChange}
+            autoComplete={autocomplete}
         />
     )
 }

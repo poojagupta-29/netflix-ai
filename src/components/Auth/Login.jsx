@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../utils/firebase';
 
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 import { BodyBgWrapper } from '../Header/BodyBgWrapper'
 import { Buttons } from '../Buttons/Buttons'
@@ -11,15 +12,20 @@ import { Inputs } from '../Inputs/Inputs'
 export const Login = () => {
 
     const { authUser, setAuthUser, error, setError, clearForm, handleError } = useAuthForm({ initialState: { email: '', password: '' } });
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError(null);
 
         try {
+            // Login user with Firebase Auth
             const userCredential = await signInWithEmailAndPassword(auth, authUser.email, authUser.password);
             clearForm();
-            console.log('User signed up:', userCredential.user);
+            const user = userCredential.user;
+            console.log('Logged in user: ', user);
+
+            navigate('/browse');
         } catch (error) {
             handleError(error);
         }

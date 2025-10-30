@@ -29,3 +29,12 @@ npx create-react-app netflix-ai
 <!-- configuration of Tailwind -->
 https://v3.tailwindcss.com/docs/guides/create-react-app
 
+<!-- handled Signin and Signup Form -->
+
+<!-- after that we are going to store user data in Redux Store -->
+
+1. install Redux ToolKit (RTK) 
+    - npm install @reduxjs/toolkit
+    - npm install react-redux
+
+

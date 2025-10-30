@@ -2,8 +2,13 @@ import { Buttons } from "../Buttons/Buttons";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
-import { auth } from "../../utils/firebase";
 import { useLocation } from "react-router-dom";
+
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../../utils/userSlice";
 
 const Header = () => {
 
@@ -21,6 +26,31 @@ const Header = () => {
     const handleSignin = () => {
         navigate('/login');
     }
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // user logged in or signed up
+                dispatch(addUser({
+                    name: user.displayName,
+                    email: user.email,
+                    uid: user.uid,
+                    photoURL: user.photoURL
+                }));
+
+                navigate('/browse');
+            } else {
+                // user logged out
+                dispatch(removeUser());
+                navigate('/login');
+            }
+        });
+
+        return () => unsubscribe(); // cleanup
+    }, [dispatch]);
+
 
     return (
         <div className="header bg-gradient-to-b from-black/70 to-transparent">

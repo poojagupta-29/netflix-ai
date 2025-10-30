@@ -9,6 +9,7 @@ import { useAuthForm } from './Hook/useAuthForm';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { addUser } from '../../utils/userSlice';
+import { PHOTO_URL } from '../../utils/constant';
 
 export const Signup = () => {
 
@@ -42,7 +43,7 @@ export const Signup = () => {
 
             await updateProfile(auth.currentUser, {
                 displayName: authUser.username.trim() || authUser.email.split('@')[0],
-                photoURL: user.photoURL || "https://i.pravatar.cc/150?img=47"
+                photoURL: user.photoURL || { PHOTO_URL }
             });
 
             // reload user info so Redux gets latest displayName

@@ -16,11 +16,11 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const user = useSelector(store => store.user);
-    console.log('Header user:', user);
+    // console.log('Header user:', user);
 
     const handleSignout = async () => {
         await signOut(auth);
-        console.log("User signed out");
+        // console.log("User signed out");
         navigate('/login');
     }
 
@@ -31,8 +31,10 @@ const Header = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
+                await user.reload();
+
                 // user logged in or signed up
                 dispatch(addUser({
                     name: user.displayName,
@@ -50,7 +52,7 @@ const Header = () => {
         });
 
         return () => unsubscribe(); // cleanup
-    }, [dispatch]);
+    }, [dispatch, navigate]);
 
 
     return (

@@ -43,13 +43,14 @@ export const Signup = () => {
 
             await updateProfile(auth.currentUser, {
                 displayName: authUser.username.trim() || authUser.email.split('@')[0],
-                photoURL: user.photoURL || { PHOTO_URL }
+                photoURL: user.photoURL || PHOTO_URL
             });
+
 
             // reload user info so Redux gets latest displayName
             await auth.currentUser.reload();
-
             const updated = auth.currentUser;
+
             dispatch(addUser({
                 name: updated.displayName,
                 email: updated.email,
@@ -62,9 +63,6 @@ export const Signup = () => {
             setTimeout(() => clearForm(), 0);
 
             console.log('User signed up:', auth.currentUser);
-
-
-
 
         } catch (error) {
             handleError(error);

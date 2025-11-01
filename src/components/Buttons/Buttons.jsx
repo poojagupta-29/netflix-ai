@@ -10,7 +10,8 @@ export const Buttons = ({
     textStyle = 'text-white font-semibold rounded',
     transition = 'transition',
     btnText = 'Sign In',
-    btnArrow = false
+    btnArrow = false,
+    icon = false
 }) => {
 
     const baseStyles = `${width} ${spacing} ${bgColor} ${textStyle} ${transition} cursor-pointer`;
@@ -19,7 +20,7 @@ export const Buttons = ({
     return (
         <button
             type={type}
-            className={`${disabled ? disabledStyles : baseStyles}`}
+            className={`${disabled ? disabledStyles : baseStyles} flex items-center justify-center px-4 py-2 gap-2`}
             onClick={onClick}
             disabled={disabled}
         >
@@ -36,6 +37,8 @@ export const Buttons = ({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                 </svg>
             )}
+
+            {icon && <span>{icon}</span>}
         </button>
     );
 };

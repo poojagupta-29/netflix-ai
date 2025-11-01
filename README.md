@@ -38,3 +38,33 @@ https://v3.tailwindcss.com/docs/guides/create-react-app
     - npm install react-redux
 
 
+<!-- Fetched “Now Playing” movies from TMDB API & stored them in Redux. -->
+
+Files Updated / Added:
+
+src/hooks/useNowPlayingMovies.js → Created custom hook to fetch TMDB API data once using useEffect.
+
+src/utils/moviesSlice.js → Added Redux slice to store movie data (addNowPlayingMovies).
+
+src/utils/appStore.js → Integrated movies reducer into store.
+
+src/components/Browse.js (or related component) → Used hook to trigger API call.
+
+💡 Purpose:
+
+Fetch “Now Playing” movies from TMDB API.
+
+Store results in Redux for global access.
+
+Prevent repeated API calls on re-renders.
+
+⚙️ Key Logic:
+
+dispatch(addNowPlayingMovies(data.results)) → Saves fetched movies in Redux.
+
+useEffect(() => { getNowPlayingMovies(); }, []) → Runs API only once.
+
+<!-- Building Browse Page -->
+
+
+

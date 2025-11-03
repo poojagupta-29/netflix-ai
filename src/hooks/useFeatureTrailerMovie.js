@@ -11,7 +11,7 @@ export const useFeatureTrailerMovie = () => {
     useEffect(() => {
         const FeatureTrailerMovie = async () => {
             if (!movies) return null;
-            const movieId = movies[0]?.id;
+            const movieId = movies[1]?.id;
 
             const response = await fetch(
                 `https://api.themoviedb.org/3/movie/${movieId}/videos`,
@@ -29,5 +29,5 @@ export const useFeatureTrailerMovie = () => {
         FeatureTrailerMovie();
     }, [movies]);
 
-    return movies ? movies[0] : null;
+    return movies ? movies[1] : null;
 }

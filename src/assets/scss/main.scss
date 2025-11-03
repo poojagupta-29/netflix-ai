@@ -3,3 +3,25 @@
 @tailwind utilities;
 
 @import './components/authpage.scss';
+
+// .overlay::before {
+//     position: absolute;
+//     inset: 0;
+//     // background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.95) 40%, rgba(0, 0, 0, 0.8) 70%, rgba(238, 235, 235, 0) 100%);
+//     background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%,
+//             /* deep black bottom */
+//             rgba(0, 0, 0, 0.85) 30%,
+//             /* slightly lighter */
+//             rgba(255, 255, 255, 0.2) 80%,
+//             /* soft faded white tint */
+//             rgba(255, 255, 255, 0.0) 100%
+//             /* subtle light overlay at top */
+//         );
+//     z-index: 0;
+//     content: '';
+//     height: 100%;
+// }
+
+.movieCardImages {
+    scroll-behavior: smooth;
+}

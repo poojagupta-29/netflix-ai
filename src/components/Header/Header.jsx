@@ -57,7 +57,7 @@ const Header = () => {
 
     return (
         <div className="header bg-gradient-to-b from-black/70 to-transparent">
-            <div className="header-inner w-[80%] mx-auto flex items-center justify-between py-4">
+            <div className="header-inner w-[90%] md:w-[80%] mx-auto flex flex-col sm:flex-row items-center justify-between py-4 gap-3 sm:gap-0">
                 <div className="logo">
                     <img src={LOGO_URL} alt="Logo" className="w-[190px] h-auto relative z-[1]" />
                 </div>
@@ -109,7 +109,6 @@ const Header = () => {
 
                 </div>
             </div>
-
         </div>
     )
 }

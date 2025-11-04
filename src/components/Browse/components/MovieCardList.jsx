@@ -2,10 +2,10 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 import { IMAGE_BACKDROP_PATH_URL } from "../../../utils/constant";
-import { usePopularMovies } from "../../../hooks/usePopularMovies";
+import { useFetchMoviesTypes } from "../../../hooks/useFetchMoviesTypes";
 
 export const MovieCardList = ({ title, movies }) => {
-    const { movieListRef, handlePrev, handleNext } = usePopularMovies();
+    const { movieListRef, handlePrev, handleNext } = useFetchMoviesTypes();
 
     return (
         <div className='movieCardListContainer w-[80%] mx-auto py-3'>

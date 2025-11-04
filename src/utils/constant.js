@@ -6,6 +6,8 @@ export const PHOTO_URL = "https://i.pravatar.cc/150?img=47";
 
 // API Key - 0fde070c17834063cf9e9c7304e276ad
 
+export const API_KEY = "0fde070c17834063cf9e9c7304e276ad";
+
 export const API_MOVIE_OPTIONS = {
     method: 'GET',
     headers: {

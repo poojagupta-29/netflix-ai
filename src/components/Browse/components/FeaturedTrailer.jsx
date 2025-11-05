@@ -19,7 +19,7 @@ export const FeaturedTrailer = () => {
                 height="auto"
                 className="w-screen aspect-video absolute top-0 left-0"
                 src={`
-                    https://www.youtube.com/embed/${trailerVideo}?si=jfjqisg_1Vikz3Ti&autoplay=1&mute=1`
+                    https://www.youtube.com/embed/${trailerVideo}?si=jfjqisg_1Vikz3Ti&autoplay=1&mute=1&loop=1&playlist=${trailerVideo}`
                 }
                 title="YouTube video player"
                 frameBorder="0"

@@ -37,7 +37,7 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <div className="relative">
+    <div className="relative bg-black">
       <Provider store={appStore}>
         <RouterProvider router={router} />
       </Provider>

@@ -10,13 +10,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../../utils/userSlice";
+import { toggleAISearchView } from "../../utils/aisearchSlice";
 
 const Header = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
+
     const user = useSelector(store => store.user);
-    // console.log('Header user:', user);
+    const showAISearchBar = useSelector(store => store.aisearch.showAISearch);
 
     const handleSignout = async () => {
         await signOut(auth);
@@ -28,7 +31,9 @@ const Header = () => {
         navigate('/login');
     }
 
-    const dispatch = useDispatch();
+    const handleToggleAISearchView = () => {
+        dispatch(toggleAISearchView());
+    }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -56,7 +61,7 @@ const Header = () => {
 
 
     return (
-        <div className="header bg-gradient-to-b from-black/70 to-transparent">
+        <div className="header bg-gradient-to-b from-black/80 to-transparent">
             <div className="header-inner w-[90%] md:w-[80%] mx-auto flex flex-col sm:flex-row items-center justify-between py-4 gap-3 sm:gap-0">
                 <div className="logo">
                     <img src={LOGO_URL} alt="Logo" className="w-[190px] h-auto relative z-[1]" />
@@ -84,13 +89,32 @@ const Header = () => {
                                 {/* Sign Out Button */}
                                 <Buttons
                                     btnText="Sign Out"
-                                    spacing="mb-0 min-w-[90px] h-full min-h-[40px]"
+                                    spacing="mb-0 min-w-[120px] h-full min-h-[40px]"
                                     width="w-auto"
                                     textStyle="rounded bg-red-600 hover:bg-red-700 text-white font-bold transition-colors duration-200"
                                     btnArrow={false}
                                     type="submit"
                                     onClick={handleSignout}
                                 />
+
+                                {/* AI search btn */}
+                                <Buttons
+                                    btnText={showAISearchBar ? "Home Page" : "AI Search"}
+                                    spacing="mb-0 min-w-[120px] h-full min-h-[40px]"
+                                    width="w-auto"
+                                    textStyle="rounded bg-red-600 hover:bg-red-700 text-white font-bold transition-colors duration-200"
+                                    btnArrow={false}
+                                    type="submit"
+                                    onClick={handleToggleAISearchView}
+                                />
+
+                                {/* language support */}
+                                <select className="w-full min-h-[40px] min-w-[120px] bg-black rounded-lg border-2 border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white text-lg font-bold flex items-center justify-center pl-1 text-md">
+                                    <option value="en" className="bg-black text-white">EN</option>
+                                    <option value="es" className="bg-black text-white">ES</option>
+                                    <option value="fr" className="bg-black text-white">FR</option>
+                                    <option value="de" className="bg-black text-white">DE</option>
+                                </select>
                             </div>
 
 

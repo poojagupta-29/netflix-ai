@@ -1,14 +1,15 @@
-import { API_KEY } from "./constant";
 import { API_MOVIE_OPTIONS } from "./constant";
+
+const api_key = process.env.REACT_APP_API_KEY;
 
 export const apiHelper = async (movieTypes) => {
 
     let url = "";
 
     if (movieTypes === "trending") {
-        url = `https://api.themoviedb.org/3/${movieTypes}/movie/week?api_key=${API_KEY}`;
+        url = `https://api.themoviedb.org/3/${movieTypes}/movie/week?api_key=${api_key}`;
     } else {
-        url = `https://api.themoviedb.org/3/movie/${movieTypes}?api_key=${API_KEY}&language=en-US&page=1`
+        url = `https://api.themoviedb.org/3/movie/${movieTypes}?api_key=${api_key}&language=en-US&page=1`
     }
 
 

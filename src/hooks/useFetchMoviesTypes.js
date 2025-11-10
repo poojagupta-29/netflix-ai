@@ -1,33 +1,20 @@
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { apiHelper } from "../utils/apiHelper"
 
 export const useFetchMoviesTypes = (movieTypes, action) => {
-
-    const movieListRef = useRef(null);
     const dispatch = useDispatch();
 
-    const handlePrev = () => {
-        movieListRef.current.scrollLeft -= movieListRef.current.offsetWidth;
-    }
-
-    const handleNext = () => {
-        movieListRef.current.scrollLeft += movieListRef.current.offsetWidth;
-    }
-
     useEffect(() => {
-        const fetchMoviesTypes = async () => {
+        if (!movieTypes || !action) return;
+        const fetchMovies = async () => {
             try {
                 const data = await apiHelper(movieTypes);
                 dispatch(action(data));
-            } catch (error) {
-                console.error("Error fetching now playing movies:", error)
+            } catch (err) {
+                console.error("Error fetching movies:", err);
             }
-        }
-
-        fetchMoviesTypes()
+        };
+        fetchMovies();
     }, [dispatch, movieTypes, action]);
-
-    return { movieListRef, handlePrev, handleNext };
-
-}
+};

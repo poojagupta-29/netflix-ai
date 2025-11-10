@@ -8,7 +8,6 @@ export const FeaturedTrailer = () => {
 
     const movies = useFeatureTrailerMovie();
     const { trailerVideo } = useSelector((store) => store.movies);
-    // console.log("movies:", movies);
 
     const { title, overview } = movies || {};
 

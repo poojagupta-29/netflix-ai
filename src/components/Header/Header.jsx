@@ -11,6 +11,8 @@ import { auth } from "../../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../../utils/userSlice";
 import { toggleAISearchView } from "../../utils/aisearchSlice";
+import { LanguageSupport } from "../AISearch/LanguageSupport";
+import { language as langConfig } from "../../utils/languageConfig";
 
 const Header = () => {
 
@@ -20,10 +22,12 @@ const Header = () => {
 
     const user = useSelector(store => store.user);
     const showAISearchBar = useSelector(store => store.aisearch.showAISearch);
+    const config = useSelector(store => store.config)
+
+    const currentLang = langConfig[config.language]
 
     const handleSignout = async () => {
         await signOut(auth);
-        // console.log("User signed out");
         navigate('/login');
     }
 
@@ -88,7 +92,7 @@ const Header = () => {
 
                                 {/* Sign Out Button */}
                                 <Buttons
-                                    btnText="Sign Out"
+                                    btnText={currentLang ? currentLang.btnTxt : 'Submit'}
                                     spacing="mb-0 min-w-[120px] h-full min-h-[40px]"
                                     width="w-auto"
                                     textStyle="rounded bg-red-600 hover:bg-red-700 text-white font-bold transition-colors duration-200"
@@ -99,8 +103,8 @@ const Header = () => {
 
                                 {/* AI search btn */}
                                 <Buttons
-                                    btnText={showAISearchBar ? "Home Page" : "AI Search"}
-                                    spacing="mb-0 min-w-[120px] h-full min-h-[40px]"
+                                    btnText={showAISearchBar ? currentLang ? currentLang.homepageTxt : 'Submit' : "AI Search"}
+                                    spacing="mb-0 min-w-[120px] h-full min-h-[40px] !p-0"
                                     width="w-auto"
                                     textStyle="rounded bg-red-600 hover:bg-red-700 text-white font-bold transition-colors duration-200"
                                     btnArrow={false}
@@ -108,13 +112,9 @@ const Header = () => {
                                     onClick={handleToggleAISearchView}
                                 />
 
-                                {/* language support */}
-                                <select className="w-full min-h-[40px] min-w-[120px] bg-black rounded-lg border-2 border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white text-lg font-bold flex items-center justify-center pl-1 text-md">
-                                    <option value="en" className="bg-black text-white">EN</option>
-                                    <option value="es" className="bg-black text-white">ES</option>
-                                    <option value="fr" className="bg-black text-white">FR</option>
-                                    <option value="de" className="bg-black text-white">DE</option>
-                                </select>
+                                {/* Language Support */}
+                                {showAISearchBar && <LanguageSupport />}
+
                             </div>
 
 

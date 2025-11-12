@@ -5,7 +5,7 @@ import { addTrailerVideo } from "../utils/moviesSlice";
 
 export const useFeatureTrailerMovie = () => {
     const dispatch = useDispatch();
-    const movies = useSelector((store) => store.movies?.trailerVideo);
+    const movies = useSelector((store) => store.movies?.popularMovies);
 
     useEffect(() => {
         if (!movies || movies.length < 2) return;
@@ -21,13 +21,9 @@ export const useFeatureTrailerMovie = () => {
                 );
                 const data = await response.json();
 
-                console.log("API data:", data); // 👈 see full response
-
                 const trailerVideos = data.results.filter(
                     (video) => video.type === "Trailer" && video.site === "YouTube"
                 );
-
-                console.log("Filtered trailers:", trailerVideos);
 
                 if (trailerVideos.length > 0) {
                     dispatch(addTrailerVideo(trailerVideos[0].key));

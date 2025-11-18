@@ -28,11 +28,7 @@ export const Signup = () => {
         e.preventDefault();
         setError(null);
 
-        console.log('Email before signup:', authUser.email, authUser.email.length);
-
         try {
-            console.log("authUser before signup:", authUser);
-
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 authUser.email,
@@ -61,8 +57,6 @@ export const Signup = () => {
             navigate('/browse');
 
             setTimeout(() => clearForm(), 0);
-
-            console.log('User signed up:', auth.currentUser);
 
         } catch (error) {
             handleError(error);

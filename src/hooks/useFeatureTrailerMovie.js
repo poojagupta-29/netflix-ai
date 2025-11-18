@@ -13,7 +13,6 @@ export const useFeatureTrailerMovie = () => {
         const fetchFeatureTrailer = async () => {
             try {
                 const movieId = movies[1].id;
-                // console.log("Fetching trailer for movieId:", movieId);
 
                 const response = await fetch(
                     `https://api.themoviedb.org/3/movie/${movieId}/videos`,

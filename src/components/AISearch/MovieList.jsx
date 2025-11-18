@@ -2,16 +2,27 @@ import { useSelector } from "react-redux";
 import { IMAGE_BACKDROP_PATH_URL } from "../../utils/constant";
 
 // Responsive 3-4 columns, square cards with bold title overlay
-const MovieListGrid = () => {
+const MovieListGrid = ({ selectedLanguage }) => {
     const movies = useSelector(store => store.gpt.searchResults || []);
+    console.log(selectedLanguage, movies)
 
-    if (!movies.length) return null;
+    // movie.original_language === selectedLanguage
+
+    const filterMovies = selectedLanguage.code === "all" ? movies : movies.filter((movie) => movie.original_language === selectedLanguage.code)
+    console.log("filterMovies:" + filterMovies)
+
+    if (!filterMovies.length) return (
+        <div className="text-center text-white py-10">
+            No movies found for the selected language.
+        </div>
+    );;
 
     return (
-        <div className="pt-10">
-            <h2 className="text-3xl text-white font-bold mb-6">Movies</h2>
+        <div className="py-10">
+
+            {/* <h2 className="text-3xl text-white font-bold mb-6">Movies</h2> */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
-                {movies.map((movie) =>
+                {filterMovies.map((movie) =>
                     !!movie && (
                         <div
                             key={movie.id}
@@ -36,6 +47,7 @@ const MovieListGrid = () => {
                 )}
             </div>
         </div>
+
     );
 };
 

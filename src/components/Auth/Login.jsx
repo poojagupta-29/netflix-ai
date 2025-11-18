@@ -23,7 +23,6 @@ export const Login = () => {
             const userCredential = await signInWithEmailAndPassword(auth, authUser.email, authUser.password);
             clearForm();
             const user = userCredential.user;
-            console.log('Logged in user: ', user);
 
             navigate('/browse');
         } catch (error) {

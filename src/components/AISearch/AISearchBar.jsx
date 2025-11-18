@@ -8,13 +8,18 @@ import { setSearchResults, setLoading, setError, clearResults } from "../../util
 import { useDispatch } from "react-redux";
 import { API_MOVIE_OPTIONS } from "../../utils/constant";
 import MovieList from "./MovieList";
+import ShimmerMovieCard from "./ShimmerMovieCard";
+import LanguageFilterBar from "./LanguageFilterBar";
 
 const AISearchBar = () => {
 
+    const [selectedLanguage, setSelectedLanguage] = useState({ code: "all", name: "All" });
+
     const dispatch = useDispatch()
+
     const config = useSelector(store => store.config)
-    const movieSearchList = useSelector(store => store.gpt?.searchResults)
-    console.log(movieSearchList)
+    const loading = useSelector(store => store.gpt.loading)
+    const movieList = useSelector(store => store.gpt?.searchResults || [])
 
     const currentLang = langConfig[config.language]
 
@@ -38,10 +43,10 @@ const AISearchBar = () => {
 
                 const detailedMoviesArray = await Promise.all(movieDetailPromises)
                 const allMovies = detailedMoviesArray.flat()
+                const filteredMovies = allMovies.filter(movie => !!movie.poster_path);
 
-                dispatch(setSearchResults(allMovies))
+                dispatch(setSearchResults(filteredMovies))
                 dispatch(setLoading(false))
-                // console.log("Gemini Response:", detailedMoviesArray);
             } catch (err) {
                 dispatch(setError(err.message))
                 console.error("Gemini Error:", err);
@@ -51,8 +56,11 @@ const AISearchBar = () => {
     };
 
     useEffect(() => {
-        console.log("movieSearchList changed:", movieSearchList);
-    }, [movieSearchList]);
+        if (query.length === 0) {
+            dispatch(clearResults());
+        }
+    }, [query, dispatch]);
+
     return (
         <div className="w-[90%] md:w-[80%] mx-auto">
             <div className="searchBar relative flex items-center mt-[50px]">
@@ -66,7 +74,22 @@ const AISearchBar = () => {
                     className="w-full p-3 bg-black rounded-lg border-2 border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500 pl-12 text-white text-lg"
                 />
             </div>
-            <MovieList />
+
+            {
+                loading ? (
+                    <ShimmerMovieCard />
+                ) : (
+                    movieList.length > 0 && (
+                        <>
+                            <LanguageFilterBar
+                                selectedLanguage={selectedLanguage}
+                                setSelectedLanguage={setSelectedLanguage}
+                            />
+                            <MovieList selectedLanguage={selectedLanguage} />
+                        </>
+                    )
+                )
+            }
         </div>
     )
 }

@@ -13,7 +13,6 @@ const LanguageFilterBar = ({ selectedLanguage, setSelectedLanguage }) => {
         setSelectedLanguage(lang);
     };
 
-
     return (
         <div className="flex gap-4 overflow-x-auto p-4 bg-[#141414] border-b border-[#333] scrollbar-hide mt-10">
             {

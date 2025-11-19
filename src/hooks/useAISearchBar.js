@@ -31,7 +31,7 @@ export const useAISearchBar = () => {
                 // fetch TMDB details for all movie titles in parallel
                 const movieDetailPromises = movieArray.map(async (title) => {
                     const encodedTitle = encodeURIComponent(title);
-                    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${encodedTitle}&include_adult=false & language=en - US & page=1`, API_MOVIE_OPTIONS)
+                    const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${encodedTitle}&include_adult=false&language=en-US&page=1`, API_MOVIE_OPTIONS)
                     const data = await response.json()
                     return data.results
                 })

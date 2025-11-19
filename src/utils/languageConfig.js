@@ -3,7 +3,7 @@ export const language = {
         label: "English",
         code: "en",
         aisearchPlaceholder: "Search movies, TV shows, and more...",
-        btnTxt: "Submit",
+        btnTxt: "Sign Out",
         homepageTxt: "Home Page",
     },
     hi: {

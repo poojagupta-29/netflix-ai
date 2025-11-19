@@ -92,7 +92,7 @@ const Header = () => {
 
                                 {/* Sign Out Button */}
                                 <Buttons
-                                    btnText={currentLang ? currentLang.btnTxt : 'Submit'}
+                                    btnText={currentLang ? currentLang.btnTxt : 'Sign Out'}
                                     spacing="mb-0 min-w-[120px] h-full min-h-[40px]"
                                     width="w-auto"
                                     textStyle="rounded bg-red-600 hover:bg-red-700 text-white font-bold transition-colors duration-200"
